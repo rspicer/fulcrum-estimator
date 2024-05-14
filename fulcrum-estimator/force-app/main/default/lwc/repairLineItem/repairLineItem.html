@@ -1,0 +1,51 @@
+<template>
+    <div class="slds-grid slds-grow slds-border_bottom slds-p-around_small">
+            <lightning-input 
+                name="name"
+                class="slds-col"
+                type="text" 
+                label="Line Item Name"
+                max-length="255"
+                value={name}
+                onchange={handleGenericChange}>
+            </lightning-input>
+            <lightning-combobox
+                name="type"
+                class="slds-col"
+                label="Type"
+                value={value}
+                placeholder="Select Type"
+                options={typeOptions}
+                onchange={handleGenericChange}>
+            </lightning-combobox>
+            <lightning-input 
+                name="price" 
+                class="slds-col"
+                type="number" 
+                label="Price" 
+                value={price}
+                formatter="currency" 
+                step="1"
+                onchange={handleGenericChange}>
+            </lightning-input>
+            <lightning-input 
+                name="notes"
+                class="slds-col"
+                type="text"
+                label="Notes"
+                max-length="255" 
+                value={notes}
+                onchange={handleGenericChange}>
+            </lightning-input>
+        <div class="slds-col slds-size_1-of-12 slds-grid">
+            <lightning-button-icon
+                class="delete-icon"
+                icon-name="utility:delete" 
+                variant="bare" 
+                alternative-text="Delete"
+                title="Delete"
+                onclick={handleDelete}>
+            </lightning-button-icon>
+        </div>
+    </div>
+</template>
