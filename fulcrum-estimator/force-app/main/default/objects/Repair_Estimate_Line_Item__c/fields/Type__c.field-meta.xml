@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Type__c</fullName>
+    <description>Type of estimate line item.</description>
+    <externalId>false</externalId>
+    <label>Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Materials</fullName>
+                <default>true</default>
+                <label>Materials</label>
+            </value>
+            <value>
+                <fullName>Labor</fullName>
+                <default>false</default>
+                <label>Labor</label>
+            </value>
+            <value>
+                <fullName>All-Inclusive</fullName>
+                <default>false</default>
+                <label>All-Inclusive</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

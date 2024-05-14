@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Repair_Work_Order__c</fullName>
+    <description>The repair work order that this estimate line item is related to.</description>
+    <externalId>false</externalId>
+    <label>Repair Work Order</label>
+    <referenceTo>WorkOrder</referenceTo>
+    <relationshipLabel>Repair Estimate Line Items</relationshipLabel>
+    <relationshipName>Repair_Estimate_Line_Items</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>
