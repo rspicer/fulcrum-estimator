@@ -5,7 +5,9 @@ export default class RepairLineItem extends LightningElement {
     @api type = 'Materials';
     @api price = 0;
     @api notes = '';
-    @api id = '';
+    @api lineItemId = '';
+
+    @api allDisabled = false;
 
     // Hard-coded picklist for Type of Line Item
     // This could be pulled from our existing picklist. Hard-coded to save time.
@@ -25,7 +27,7 @@ export default class RepairLineItem extends LightningElement {
             detail: {
                 fieldName: e.target.name,
                 value: e.detail.value,
-                id: this.id
+                id: this.lineItemId
             },
             bubbles: true,
             composed: true
@@ -35,7 +37,7 @@ export default class RepairLineItem extends LightningElement {
     handleDelete(e) {
         this.dispatchEvent(new CustomEvent('deleteitem', {
             detail: {
-                id: this.id
+                id: this.lineItemId
             },
             bubbles: true,
             composed: true

@@ -1,9 +1,27 @@
 import { LightningElement, wire } from 'lwc';
 import { getObjectInfo } from 'lightning/uiObjectInfoApi';
+import { createRecord } from 'lightning/uiRecordApi';
+
 import WORK_ORDER_OBJECT from '@salesforce/schema/WorkOrder';
+import REPAIR_ESTIMATE_LINE_ITEM from '@salesforce/schema/Repair_Estimate_Line_Item__c'
 
 export default class RepairEstimator extends LightningElement {
-    repairLineItems = [];
+    repairLineItems = [{name: '', type: 'Materials', price: 0, notes: '', id: this.generateUniqueId()}];
+    workOrderId;
+    estimateStarted = false;
+    
+
+    // Match based on the Subject (describing the repair) and the Location Name
+    workOrderMatchingInfo = {
+        primaryField: { fieldPath: 'Subject' },
+        additionalFields: [{ fieldPath: 'Location.Name' }],
+    };
+
+    // Display the Location Name and the Subject (Work Order Number may be appropriate here as well - you can only display two fields, so we'd have to pick 2 of the 3 using this component)
+    workOrderDisplayInfo = {
+        primaryField: 'Location.Name',
+        additionalFields: ['Subject']
+    };
 
     // Filter we build based on Record Type and user input for selecting a Work Order
     // Getter since we wait on getObjectInfo
@@ -20,17 +38,9 @@ export default class RepairEstimator extends LightningElement {
         }
     }
 
-    // Match based on the Subject (describing the repair) and the Location Name
-    workOrderMatchingInfo = {
-        primaryField: { fieldPath: 'Subject' },
-        additionalFields: [{ fieldPath: 'Location.Name' }],
-    };
-
-    // Display the Location Name and the Subject (Work Order Number may be appropriate here as well - you can only display two fields, so we'd have to pick 2 of the 3 using this component)
-    workOrderDisplayInfo = {
-        primaryField: 'Location.Name',
-        additionalFields: ['Subject']
-    };
+    get allDisabled() {
+        return !this.workOrderId || !this.estimateStarted;
+    }
 
     recordTypeId;
 
@@ -50,6 +60,14 @@ export default class RepairEstimator extends LightningElement {
     // Good enough for this project
     generateUniqueId() {
         return 'id-' + Math.random().toString(36).substr(2, 9) + '-' + Date.now();
+    }
+
+    handleWorkOrderSelect(e) {
+        this.workOrderId = e.detail.recordId
+    }
+
+    handleCreateEstimate() {
+
     }
 
     // Have to recreate the array with spread operator for it to recognize the change

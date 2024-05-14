@@ -2,6 +2,7 @@
     <div class="slds-grid slds-grow slds-border_bottom slds-p-around_small">
             <lightning-input 
                 name="name"
+                disabled={allDisabled}
                 class="slds-col"
                 type="text" 
                 label="Line Item Name"
@@ -11,7 +12,8 @@
             </lightning-input>
             <lightning-combobox
                 name="type"
-                class="slds-col"
+                disabled={allDisabled}
+                class="slds-col slds-m-left_x-small"
                 label="Type"
                 value={value}
                 placeholder="Select Type"
@@ -19,8 +21,9 @@
                 onchange={handleGenericChange}>
             </lightning-combobox>
             <lightning-input 
-                name="price" 
-                class="slds-col"
+                name="price"
+                disabled={allDisabled}
+                class="slds-col slds-m-left_x-small"
                 type="number" 
                 label="Price" 
                 value={price}
@@ -30,7 +33,8 @@
             </lightning-input>
             <lightning-input 
                 name="notes"
-                class="slds-col"
+                disabled={allDisabled}
+                class="slds-col slds-m-left_x-small"
                 type="text"
                 label="Notes"
                 max-length="255" 
@@ -39,7 +43,10 @@
             </lightning-input>
         <div class="slds-col slds-size_1-of-12 slds-grid">
             <lightning-button-icon
-                class="delete-icon"
+                class="delete-icon slds-m-top_large"
+                disabled={allDisabled}
+                icon-class="slds-text-color_error"
+                size="large"
                 icon-name="utility:delete" 
                 variant="bare" 
                 alternative-text="Delete"

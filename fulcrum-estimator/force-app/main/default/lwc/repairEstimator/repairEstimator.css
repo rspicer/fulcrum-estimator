@@ -1,3 +1,7 @@
 .line-item-box {
     min-height: 600px;
 }
+
+.add-item-button {
+    max-width: fit-content;
+}
