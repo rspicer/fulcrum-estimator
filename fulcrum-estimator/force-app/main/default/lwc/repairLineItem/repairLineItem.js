@@ -8,6 +8,7 @@ export default class RepairLineItem extends LightningElement {
     @api lineItemId = '';
 
     @api allDisabled = false;
+    @api saveAndDeleteDisabled = false;
 
     // Hard-coded picklist for Type of Line Item
     // This could be pulled from our existing picklist. Hard-coded to save time.

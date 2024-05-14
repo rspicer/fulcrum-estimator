@@ -16,15 +16,16 @@
         <div class="slds-border_top slds-border_bottom slds-border_left slds-border_right slds-grid slds-grow_none slds-size_8-of-12 slds-grid_vertical slds-m-top_small line-item-box">
             <template for:each={repairLineItems} for:item="lineItem">
                 <c-repair-line-item
-                    key={lineItem.id}
-                    all-disabled={allDisabled}
-                    name={lineItem.name}
-                    type={lineItem.type}
-                    price={lineItem.price}
-                    notes={lineItem.notes}
-                    line-item-id={lineItem.id}
-                    onchangeitemvalues={handleChangeItemValues}
-                    ondeleteitem={handleDeleteItem}
+                        key={lineItem.id}
+                        all-disabled={allDisabled}
+                        save-and-delete-disabled={saveAndDeleteDisabled}
+                        name={lineItem.name}
+                        type={lineItem.type}
+                        price={lineItem.price}
+                        notes={lineItem.notes}
+                        line-item-id={lineItem.id}
+                        onchangeitemvalues={handleChangeItemValues}
+                        ondeleteitem={handleDeleteItem}
                     >
                 </c-repair-line-item>
             </template>
@@ -41,18 +42,18 @@
         <div class="slds-grid slds-size_8-of-12 slds-m-top_small slds-grid_align-end">
             <lightning-button 
                 variant="brand"
-                disabled={allDisabled}
-                label="Create Estimate" 
-                title="Create Estimate" 
-                onclick={handleCreateEstimate} 
+                disabled={saveAndDeleteDisabled}
+                label="Save Estimate" 
+                title="Save Estimate" 
+                onclick={handleSaveEstimate} 
                 class="slds-m-right_x-small">
             </lightning-button>
             <lightning-button 
                 variant="brand"
-                disabled={allDisabled}
-                label="Save Estimate" 
-                title="Save Estimate" 
-                onclick={handleSaveEstimate} 
+                disabled={createDisabled}
+                label="Create Estimate" 
+                title="Create Estimate" 
+                onclick={handleCreateEstimate} 
                 class="slds-m-right_x-small">
             </lightning-button>
         </div>
