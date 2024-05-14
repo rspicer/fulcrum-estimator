@@ -3,26 +3,33 @@ import { getObjectInfo } from 'lightning/uiObjectInfoApi';
 import WORK_ORDER_OBJECT from '@salesforce/schema/WorkOrder';
 
 export default class RepairEstimator extends LightningElement {
+    repairLineItems = [];
+
     // Filter we build based on Record Type and user input for selecting a Work Order
-    workOrderFilter = {
-        criteria: [
-            {
-                fieldPath: 'RecordTypeId',
-                operator: 'eq',
-                value: this.recordTypeId || '',
-            }
-        ],
-        filterLogic: '1',
+    // Getter since we wait on getObjectInfo
+    get workOrderFilter() {
+        return {
+            criteria: [
+                {
+                    fieldPath: 'RecordTypeId',
+                    operator: 'eq',
+                    value: this.recordTypeId || '',
+                }
+            ],
+            filterLogic: '1',
+        }
+    }
+
+    // Match based on the Subject (describing the repair) and the Location Name
+    workOrderMatchingInfo = {
+        primaryField: { fieldPath: 'Subject' },
+        additionalFields: [{ fieldPath: 'Location.Name' }],
     };
 
-    workdOrderMatchingInfo = {
-        primaryField: { fieldPath: 'Description' },
-        additionalFields: [{ fieldPath: 'Location.Name' }]
-    };
-
+    // Display the Location Name and the Subject (Work Order Number may be appropriate here as well - you can only display two fields, so we'd have to pick 2 of the 3 using this component)
     workOrderDisplayInfo = {
-        primaryField: { fieldPath: 'Name' },
-        additionalFields: [{ fieldPath: 'Location.Name' }, { fieldPath: 'Description' }]
+        primaryField: 'Location.Name',
+        additionalFields: ['Subject']
     };
 
     recordTypeId;
@@ -37,5 +44,34 @@ export default class RepairEstimator extends LightningElement {
             // Handle error
             console.error(error);
         }
+    }
+
+    // Found online - probably a better solution to this, I'd like to use UUID but I'd rather not include it in the package
+    // Good enough for this project
+    generateUniqueId() {
+        return 'id-' + Math.random().toString(36).substr(2, 9) + '-' + Date.now();
+    }
+
+    // Have to recreate the array with spread operator for it to recognize the change
+    // Can also use JSON.parse(JSON.stringify(obj)) for this if its deeply nested - it's an approved way of doing so to my knowledge, and relatively efficient
+    // Some defaults set
+    handleAddItem() {
+        this.repairLineItems = [...this.repairLineItems, {name: '', type: 'Materials', price: 0, notes: '', id: this.generateUniqueId()}];
+    }
+
+    // Use a map for the same reason above - to ensure the tracked property picks up on changes.
+    handleChangeItemValues(e) {
+        this.repairLineItems = this.repairLineItems.map(lineItem => {
+            if (lineItem.id === e.detail.id) {
+                return { ...lineItem, [e.detail.fieldName]: e.detail.value };
+            }
+            return lineItem;
+        });
+    }
+
+    handleDeleteItem(e) {
+        this.repairLineItems = this.repairLineItems.filter(lineItem => {
+            return lineItem.id !== e.detail.id;
+        })
     }
 }

@@ -1,11 +1,55 @@
 <template>
-    <lightning-record-picker
-        label="Repair Work Order"
-        placeholder="Search repair work orders..."
-        object-api-name="WorkOrder"
-        filter={workOrderFilter}
-        matching-info={workOrderMatchingInfo}
-        display-info={workOrderDisplayInfo}
-    >
-    </lightning-record-picker>
+    <div class="slds-box slds-grid slds-grid_vertical slds-theme_default">
+        <div class="slds-grid">
+            <lightning-record-picker
+                label="Repair Work Order"
+                placeholder="Search by Building Name or Subject..."
+                class="slds-grid"
+                object-api-name="WorkOrder"
+                filter={workOrderFilter}
+                matching-info={workOrderMatchingInfo}
+                display-info={workOrderDisplayInfo}
+            >
+            </lightning-record-picker>
+        </div>
+        <div class="slds-border_top slds-border_bottom slds-border_left slds-border_right slds-grid slds-size_8-of-12 slds-grid_vertical slds-m-top_small line-item-box">
+            <template for:each={repairLineItems} for:item="lineItem">
+                <c-repair-line-item
+                    key={lineItem.id}
+                    name={lineItem.name}
+                    type={lineItem.type}
+                    price={lineItem.price}
+                    notes={lineItem.price}
+                    id={lineItem.id}
+                    onchangeitemvalues={handleChangeItemValues}
+                    ondeleteitem={handleDeleteItem}
+                    >
+                </c-repair-line-item>
+            </template>
+            <lightning-button
+                variant="neutral"
+                label="Add Item"
+                title="Add Item"
+                onclick={handleAddItem}
+                icon-name="utility:add"
+                class="slds-p-around_xxx-small slds-m-left_x-small slds-m-right_x-small">
+            </lightning-button>
+        </div>
+        <div class="slds-grid slds-size_8-of-12 slds-m-top_small slds-grid_align-end">
+            <lightning-button 
+                variant="brand" 
+                label="Save Estimate" 
+                title="Save Estimate" 
+                onclick={handleCreateEstimate} 
+                class="slds-m-right_x-small">
+            </lightning-button>
+            <lightning-button 
+                variant="brand" 
+                label="Create Estimate" 
+                title="Create Estimate" 
+                onclick={handleCreateEstimate} 
+                class="">
+            </lightning-button>
+        </div>
+    </div>
 </template>
