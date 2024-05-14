@@ -1,27 +1,27 @@
 <template>
     <div class="slds-grid slds-grow slds-border_bottom slds-p-around_small">
             <lightning-input 
-                name="name"
+                name="Description__c"
                 disabled={allDisabled}
                 class="slds-col"
                 type="text" 
-                label="Line Item Name"
+                label="Line Item Description"
                 max-length="255"
                 value={name}
                 onchange={handleGenericChange}>
             </lightning-input>
             <lightning-combobox
-                name="type"
+                name="Type__c"
                 disabled={allDisabled}
                 class="slds-col slds-m-left_x-small"
                 label="Type"
-                value={value}
+                value={type}
                 placeholder="Select Type"
                 options={typeOptions}
                 onchange={handleGenericChange}>
             </lightning-combobox>
             <lightning-input 
-                name="price"
+                name="Price__c"
                 disabled={allDisabled}
                 class="slds-col slds-m-left_x-small"
                 type="number" 
@@ -32,7 +32,7 @@
                 onchange={handleGenericChange}>
             </lightning-input>
             <lightning-input 
-                name="notes"
+                name="Notes__c"
                 disabled={allDisabled}
                 class="slds-col slds-m-left_x-small"
                 type="text"

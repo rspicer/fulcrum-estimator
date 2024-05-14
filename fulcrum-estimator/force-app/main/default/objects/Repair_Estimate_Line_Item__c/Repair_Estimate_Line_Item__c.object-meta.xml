@@ -156,8 +156,9 @@
     <externalSharingModel>ControlledByParent</externalSharingModel>
     <label>Repair Estimate Line Item</label>
     <nameField>
+        <displayFormat>RELI-{0000}</displayFormat>
         <label>Repair Estimate Line Item</label>
-        <type>Text</type>
+        <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Repair Estimate Line Items</pluralLabel>
     <searchLayouts></searchLayouts>

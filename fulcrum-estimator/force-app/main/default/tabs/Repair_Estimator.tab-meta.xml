@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomTab xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Tab for the Repair Estimator.</description>
+    <label>Repair Estimator</label>
+    <lwcComponent>repairEstimator</lwcComponent>
+    <motif>Custom19: Wrench</motif>
+</CustomTab>

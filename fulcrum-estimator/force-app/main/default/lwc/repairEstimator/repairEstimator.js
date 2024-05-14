@@ -3,11 +3,15 @@ import { getObjectInfo } from 'lightning/uiObjectInfoApi';
 import { createRecord } from 'lightning/uiRecordApi';
 import { deleteRecord } from 'lightning/uiRecordApi';
 
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+
+import saveRepairEstimateLineItems from '@salesforce/apex/RepairEstimationController.saveRepairEstimateLineItems';
+
 import WORK_ORDER_OBJECT from '@salesforce/schema/WorkOrder';
 import REPAIR_ESTIMATE_LINE_ITEM from '@salesforce/schema/Repair_Estimate_Line_Item__c'
 
 export default class RepairEstimator extends LightningElement {
-    repairLineItems = [{name: '', type: 'Materials', price: 0, notes: '', id: this.generateUniqueId()}];
+    repairLineItems = [{Description__c: '', Type__c: 'Materials', Price__c: 0, Notes__c: '', Id: this.generateUniqueId()}];
     workOrderId;
     estimateStarted = false;
     savingBlocked = false;
@@ -21,8 +25,8 @@ export default class RepairEstimator extends LightningElement {
 
     // Display the Location Name and the Subject (Work Order Number may be appropriate here as well - you can only display two fields, so we'd have to pick 2 of the 3 using this component)
     workOrderDisplayInfo = {
-        primaryField: 'Location.Name',
-        additionalFields: ['Subject']
+        primaryField: 'Subject',
+        additionalFields: ['Location.Name']
     };
 
     // Filter we build based on Record Type and user input for selecting a Work Order
@@ -38,6 +42,10 @@ export default class RepairEstimator extends LightningElement {
             ],
             filterLogic: '1',
         }
+    }
+
+    get workOrderSelectDisabled() {
+        return !!this.workOrderId && this.estimateStarted;
     }
 
     get allDisabled() {
@@ -88,13 +96,28 @@ export default class RepairEstimator extends LightningElement {
             }
           }
         createRecord(initialLineItem).then((record) => {
-            this.repairLineItems = [{...initialLineItem.fields, id: record.id}];
+            this.repairLineItems = [{...initialLineItem.fields, Id: record.id}];
             this.estimateStarted = true;
         })
     }
 
     handleSaveEstimate() {
-        
+        this.savingBlocked = true;
+        saveRepairEstimateLineItems({jsonLineItems: JSON.stringify(this.repairLineItems)})
+            .then(() => {
+                this.dispatchEvent(
+                    new ShowToastEvent({
+                        title: 'Success',
+                        message: 'Repair estimate saved successfully',
+                        variant: 'success'
+                    })
+                );
+            })
+            .catch((error) => {
+                console.error(error);
+            }).finally(() => {
+                this.savingBlocked = false;
+            })
     }
 
     // Have to recreate the array with spread operator for it to recognize the change
@@ -112,24 +135,26 @@ export default class RepairEstimator extends LightningElement {
             }
         }
         const tempId = this.generateUniqueId();
-        this.repairLineItems = [...this.repairLineItems, {...newLineItem.fields, id: tempId}];
+        this.repairLineItems = [...this.repairLineItems, {...newLineItem.fields, Id: tempId}];
         this.savingBlocked = true;
         createRecord(newLineItem)
             .then((record) => {
                 this.repairLineItems.find((item) => {
-                    return item.id === tempId;
-                }).id = record.id;
-                this.savingBlocked = false;
+                    return item.Id === tempId;
+                }).Id = record.id;
             })
             .catch((error) => {
                 console.error(error);
+            })
+            .finally(() => {
+                this.savingBlocked = false;
             })
     }
 
     // Use a map for the same reason above - to ensure the tracked property picks up on changes.
     handleChangeItemValues(e) {
         this.repairLineItems = this.repairLineItems.map(lineItem => {
-            if (lineItem.id === e.detail.id) {
+            if (lineItem.Id === e.detail.id) {
                 return { ...lineItem, [e.detail.fieldName]: e.detail.value };
             }
             return lineItem;
@@ -139,12 +164,14 @@ export default class RepairEstimator extends LightningElement {
     handleDeleteItem(e) {
         this.savingBlocked = true;
         this.repairLineItems = this.repairLineItems.filter(lineItem => {
-            return lineItem.id !== e.detail.id;
+            return lineItem.Id !== e.detail.id;
         });
         deleteRecord(e.detail.id).then(() => {
             this.savingBlocked = false;
         }).catch((error) => {
             console.error(error);
+        }).finally(() => {
+            this.savingBlocked = false;
         })
     }
 }

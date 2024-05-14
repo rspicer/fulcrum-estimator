@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Repair_Estimate_Price__c</fullName>
+    <description>Estimation of Repair Price, calculated from all Repair Estimate Line Items</description>
+    <externalId>false</externalId>
+    <label>Repair Estimate Price</label>
+    <summarizedField>Repair_Estimate_Line_Item__c.Price__c</summarizedField>
+    <summaryForeignKey>Repair_Estimate_Line_Item__c.Repair_Work_Order__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <type>Summary</type>
+</CustomField>

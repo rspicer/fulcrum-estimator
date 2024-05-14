@@ -3,6 +3,7 @@
         <div class="slds-grid">
             <lightning-record-picker
                 label="Repair Work Order"
+                disabled={workOrderSelectDisabled}
                 placeholder="Search by Building Name or Subject..."
                 class="slds-col slds-size_3-of-12"
                 object-api-name="WorkOrder"
@@ -13,17 +14,17 @@
             >
             </lightning-record-picker>
         </div>
-        <div class="slds-border_top slds-border_bottom slds-border_left slds-border_right slds-grid slds-grow_none slds-size_8-of-12 slds-grid_vertical slds-m-top_small line-item-box">
+        <div class="slds-border_top slds-border_bottom slds-border_left slds-border_right slds-grid slds-grow_none slds-scrollable_y slds-size_8-of-12 slds-grid_vertical slds-m-top_small line-item-box">
             <template for:each={repairLineItems} for:item="lineItem">
                 <c-repair-line-item
-                        key={lineItem.id}
+                        key={lineItem.Id}
                         all-disabled={allDisabled}
                         save-and-delete-disabled={saveAndDeleteDisabled}
-                        name={lineItem.name}
-                        type={lineItem.type}
-                        price={lineItem.price}
-                        notes={lineItem.notes}
-                        line-item-id={lineItem.id}
+                        name={lineItem.Description__c}
+                        type={lineItem.Type__c}
+                        price={lineItem.Price__c}
+                        notes={lineItem.Notes__c}
+                        line-item-id={lineItem.Id}
                         onchangeitemvalues={handleChangeItemValues}
                         ondeleteitem={handleDeleteItem}
                     >
