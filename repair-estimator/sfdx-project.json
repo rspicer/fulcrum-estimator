@@ -5,7 +5,7 @@
       "default": true
     }
   ],
-  "name": "fulcrum-estimator",
+  "name": "repair-estimator",
   "namespace": "",
   "sfdcLoginUrl": "https://login.salesforce.com",
   "sourceApiVersion": "59.0"
