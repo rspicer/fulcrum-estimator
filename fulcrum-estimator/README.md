@@ -1,18 +1,13 @@
-# Salesforce DX Project: Next Steps
+# Fulcrum Test - Repair Estimator
 
-Now that you’ve created a Salesforce DX project, what’s next? Here are some documentation resources to get you started.
+Hi there! Spent a decent amount of time on this, and I think it turned out great. Let me give you some steps for how to set it up. I'll go over feature in detail during our call, including things that could have been improved.
 
-## How Do You Plan to Deploy Your Changes?
+## Getting Started
 
-Do you want to deploy a set of changes, or create a self-contained application? Choose a [development model](https://developer.salesforce.com/tools/vscode/en/user-guide/development-models).
-
-## Configure Your Salesforce DX Project
-
-The `sfdx-project.json` file contains useful configuration information for your project. See [Salesforce DX Project Configuration](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_ws_config.htm) in the _Salesforce DX Developer Guide_ for details about this file.
-
-## Read All About It
-
-- [Salesforce Extensions Documentation](https://developer.salesforce.com/tools/vscode/)
-- [Salesforce CLI Setup Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_intro.htm)
-- [Salesforce DX Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_intro.htm)
-- [Salesforce CLI Command Reference](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference.htm)
+- Clone repo to a folder
+- Create a scratch org - NOTE: This project will probably only work in a non-namespaced org. Not for any major reason, but just because I hardcoded field names. Scratch org will work best.
+- Push source
+- Assign yourself the "Repair Estimator" Permission Set - NOTE: I took a carte blanche approach to permissions. I didn't pay much attention to them - this would not be how I would do a real project, but I don't think I'm being tested on that, so I just made it easy.
+- Use the Developer Console, and execute anonymous apex: RepairEstimationController.createEstimationData();
+    - This will create some test data
+- Navigate to the Repair Estimation Tab, and interact as you see fit.
