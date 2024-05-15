@@ -2,6 +2,14 @@
     height: 600px;
 }
 
-.add-item-button {
+.fit-content {
     max-width: fit-content;
+}
+
+.m-l-auto {
+    margin-left: auto;
+}
+
+.m-t-auto {
+    margin-top: auto;
 }

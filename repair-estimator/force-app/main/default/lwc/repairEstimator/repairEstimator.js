@@ -60,6 +60,12 @@ export default class RepairEstimator extends LightningElement {
         return this.allDisabled || this.savingBlocked;
     }
 
+    get totalPrice() {
+        return this.repairLineItems.reduce((accumulator, item) => {
+            return accumulator + (parseInt(item.Price__c, 10) || 0);
+        }, 0) || 0;
+    }
+
     recordTypeId;
 
     @wire(getObjectInfo, { objectApiName: WORK_ORDER_OBJECT })
