@@ -1,4 +1,4 @@
-# Fulcrum Test - Repair Estimator
+# Repair Estimator
 
 Hi there! Spent a decent amount of time on this, and I think it turned out great. Let me give you some steps for how to set it up. I'll go over feature in detail during our call, including things that could have been improved.
 
