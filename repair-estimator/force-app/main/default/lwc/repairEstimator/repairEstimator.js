@@ -15,7 +15,7 @@ export default class RepairEstimator extends LightningElement {
     workOrderId;
     estimateStarted = false;
     savingBlocked = false;
-    
+    changesSaved = true;
 
     // Match based on the Subject (describing the repair) and the Location Name
     workOrderMatchingInfo = {
@@ -66,6 +66,10 @@ export default class RepairEstimator extends LightningElement {
         }, 0) || 0;
     }
 
+    get computedSaveStateClass() {
+        return this.changesSaved ? 'slds-text-color_success' : 'slds-text-color_error';
+    }
+
     recordTypeId;
 
     @wire(getObjectInfo, { objectApiName: WORK_ORDER_OBJECT })
@@ -111,6 +115,7 @@ export default class RepairEstimator extends LightningElement {
         this.savingBlocked = true;
         saveRepairEstimateLineItems({jsonLineItems: JSON.stringify(this.repairLineItems)})
             .then(() => {
+                this.changesSaved = true;
                 this.dispatchEvent(
                     new ShowToastEvent({
                         title: 'Success',
@@ -159,6 +164,7 @@ export default class RepairEstimator extends LightningElement {
 
     // Use a map for the same reason above - to ensure the tracked property picks up on changes.
     handleChangeItemValues(e) {
+        this.changesSaved = false;
         this.repairLineItems = this.repairLineItems.map(lineItem => {
             if (lineItem.Id === e.detail.id) {
                 return { ...lineItem, [e.detail.fieldName]: e.detail.value };

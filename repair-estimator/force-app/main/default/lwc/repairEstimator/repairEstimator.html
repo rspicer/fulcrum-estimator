@@ -44,6 +44,14 @@
             </lightning-button>
         </div>
         <div class="slds-grid slds-medium-size_12-of-12 slds-large-size_10-of-12 slds-m-top_small slds-grid_align-end">
+            <template if:true={estimateStarted}>
+                <template if:true={changesSaved}>
+                    <p class="slds-m-right_x-small m-t-auto m-b-auto slds-text-color_success">Changes saved</p>
+                </template>
+                <template if:false={changesSaved}>
+                    <p class="slds-m-right_x-small m-t-auto m-b-auto slds-text-color_error">Save needed</p>
+                </template>
+            </template>
             <lightning-button 
                 variant="brand"
                 disabled={saveAndDeleteDisabled}
