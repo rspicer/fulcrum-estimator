@@ -7,19 +7,7 @@
     <picklistValues>
         <picklist>LocationType</picklist>
         <values>
-            <fullName>Plant</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Site</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Van</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Virtual</fullName>
             <default>false</default>
         </values>
         <values>
